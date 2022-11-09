@@ -328,6 +328,9 @@ func NtoM(i1, i2 int) {
 	classes[i1].Import = append(classes[i1].Import, models.Import{Name: "java.util.Set"})
 	classes[i2].Import = append(classes[i2].Import, models.Import{Name: "java.util.Set"})
 
+	classes[i1].Import = append(classes[i1].Import, models.Import{Name: "com.fasterxml.jackson.annotation.JsonIgnore"})
+	classes[i2].Import = append(classes[i2].Import, models.Import{Name: "com.fasterxml.jackson.annotation.JsonIgnore"})
+
 	var r bool = true
 	for r {
 		// check if the user wants to make another variable
@@ -419,7 +422,7 @@ func apiController(c models.Class) string {
 
 	sb.WriteString(fmt.Sprintf("@RestController\n@RequestMapping(\"/%s\")\npublic class Rest%sController {\n", strings.ToLower(c.Name), c.Name))
 	sb.WriteString(fmt.Sprintf("\n@Autowired\n%sRepository r;\n\n", c.Name))
-	sb.WriteString(fmt.Sprintf("@GetMapping(\"/\")\npublic List<%s> getAll(){\nreturn r.findAll();\n}", c.Name))
+	sb.WriteString(fmt.Sprintf("@GetMapping(\"/getAll\")\npublic List<%s> getAll(){\nreturn r.findAll();\n}", c.Name))
 
 	sb.WriteString("\n}")
 	return sb.String()
