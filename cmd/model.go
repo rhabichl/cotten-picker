@@ -14,6 +14,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type promptContent struct {
+	errorMsg string
+	label    string
+}
+
 var packageName string
 
 var classes []models.Class
